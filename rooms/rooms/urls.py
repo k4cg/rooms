@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponseRedirect
 
+from . import views
+
 urlpatterns = [
-    path('', lambda r: HttpResponseRedirect('tracker/')),
+    path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('tracker/', include('tracker.urls')),
 ]
