@@ -1,9 +1,9 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from tracker.views import getRooms
 
 def index(request):
-    output = 'Hello, World!'
-    context = {}
+    context = {'rooms': getRooms()}
     return render(request, 'index.html', context)
 
