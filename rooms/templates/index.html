@@ -17,14 +17,8 @@
 	<body>
 		
 		<div class="d-flex flex-row h-100" id="main-row">
-			<div class="col-sm-2 bg-dark text-light mg-2" id="roomlist">
-				{% for r in rooms %}
-					<p><button type="button" class="btn btn-primary" onclick="btnclick('{{r.jitsiRoom}}')">{{r.name}}</button></p>
-					<p><div id="userlist-{{r.name}}"></div></p>
-				{% endfor %}
-			</div>
-			<div class="d-flex flex-column w-100" id="jitsi">
-			</div>
+			<div class="col-sm-2 bg-dark text-light mg-2" id="roomlist"></div>
+			<div class="d-flex flex-column w-100" id="jitsi"></div>
 		</div>
 		
 		<script type="text/javascript">
@@ -98,12 +92,11 @@
 						"X-CSRFToken": getCookie("csrftoken"),
 					},
 					success: function(result) {
-						for ( var key in result["rooms"] ) {
-							$('#userlist-' + key).html( result["rooms"][key] );
-						}
+						$('#roomlist').html( result["rooms"] );
 					}
 				});
 			}
+			ping();
 			setInterval(ping, 5000);
 		</script>
 		

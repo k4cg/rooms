@@ -1,4 +1,10 @@
 
-{% for u in users %}
-	<p>{{ u.nick }}</p>
+<p></p>
+{% for r in rooms %}
+	<p><button type="button" class="btn btn-primary" onclick="btnclick('{{r.jitsiRoom}}')">{{r.name}}</button></p>
+	<p><div id="userlist-{{r.name}}">
+		{% for u in r.users %}
+			<p>{{ u.nick }}</p>
+		{% endfor %}
+	</div></p>
 {% endfor %}
