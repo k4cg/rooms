@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
+from django.views.decorators.csrf import ensure_csrf_cookie
 from json import loads
 from datetime import datetime, timedelta
 import pytz
@@ -15,6 +16,7 @@ def index(request):
 def getRooms():
     return Room.objects.all()
 
+@ensure_csrf_cookie
 def ping(request):
     if request.is_ajax() and request.method == 'POST':
         reqData = loads(request.body)
