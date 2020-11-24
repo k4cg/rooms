@@ -1,0 +1,6 @@
+
+Test:
+* Install local jitsi instance (e.g., using docker-compose)
+* go to directory rooms
+* start "./runserver"
+* visit "http://localhost:8080"
