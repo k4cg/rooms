@@ -2,3 +2,4 @@
 __pycache__
 secretkey.txt
 rooms/rooms/config.py
+.venv
