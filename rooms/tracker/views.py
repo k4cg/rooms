@@ -38,5 +38,6 @@ def ping(request):
     for r in rooms:
         qs = User.objects.filter(inRoom=r, lastSeen__gte=timezone.now()-timedelta(seconds=30))
         r.users = qs
-    data = {'rooms': render(request, 'userlist.html', {'rooms': rooms}).content.decode() }
+    vnum = len( User.objects.filter(lastSeen__gte=timezone.now()-timedelta(hours=12)) )
+    data = {'rooms': render(request, 'userlist.html', {'rooms': rooms, 'vnum': vnum}).content.decode() }
     return JsonResponse(data)
