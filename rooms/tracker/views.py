@@ -14,7 +14,7 @@ def index(request):
     return HttpResponse(output, content_type='text/plain')
 
 def getRooms():
-    return Room.objects.all()
+    return Room.objects.all().order_by('-orderPrio','name')
 
 @ensure_csrf_cookie
 def ping(request):
