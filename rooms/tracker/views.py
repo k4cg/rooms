@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 import pytz
 
 from .models import Room, User
+from rooms import config
 
 def index(request):
     output = 'Hello, World!'
@@ -39,5 +40,5 @@ def ping(request):
         qs = User.objects.filter(inRoom=r, lastSeen__gte=timezone.now()-timedelta(seconds=30))
         r.users = qs
     vnum = len( User.objects.filter(lastSeen__gte=timezone.now()-timedelta(hours=12)) )
-    data = {'rooms': render(request, 'userlist.html', {'rooms': rooms, 'vnum': vnum}).content.decode() }
+    data = {'rooms': render(request, 'userlist.html', {'rooms': rooms, 'vnum': vnum, 'ack': config.acknowledgement}).content.decode() }
     return JsonResponse(data)
