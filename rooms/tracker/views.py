@@ -23,6 +23,7 @@ def ping(request):
         reqData = loads(request.body)
         nick = reqData['nick']
         room = reqData['room']
+        users = reqData['users']
         
         if nick:
             qs = User.objects.filter(nick=nick)
@@ -39,6 +40,9 @@ def ping(request):
     for r in rooms:
         qs = User.objects.filter(inRoom=r, lastSeen__gte=timezone.now()-timedelta(seconds=30))
         r.users = qs
+        if r == u.inRoom:
+            v = list(qs.values_list("nick"))
+            print(v)
     vnum = len( User.objects.filter(lastSeen__gte=timezone.now()-timedelta(hours=12)) )
     data = {'rooms': render(request, 'userlist.html', {'rooms': rooms, 'vnum': vnum, 'ack': config.acknowledgement}).content.decode() }
     return JsonResponse(data)

@@ -12,6 +12,7 @@ class User(models.Model):
     nick = models.CharField(max_length=256, db_index=True)
     inRoom = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True)
     lastSeen = models.DateTimeField(auto_now=True)
+    external = models.BooleanField(default=False)
     
     def __str__(self):
         if self.inRoom:
