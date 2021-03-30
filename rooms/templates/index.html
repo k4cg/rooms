@@ -28,7 +28,7 @@
 				roomName: "{{rooms.0.jitsiRoom}}",
 				parentNode: $("#jitsi")[0],
 				configOverwrite: {
-					//startWithAudioMuted: false
+					prejoinPageEnabled: true
 				},
 				interfaceConfigOverwrite: {
 				},
@@ -39,13 +39,16 @@
 			var pingId = -1;
 			var api = new JitsiMeetExternalAPI(domain, options);
 			api.customParamRoomsHangup = false;
+			options.configOverwrite.prejoinPageEnabled = false;
 			
 			function btnclick(id) {
+				clearInterval(pingId);
 				api.customParamRoomsHangup = true;
 				api.executeCommand("hangup");
 				api.dispose()
 				options["roomName"] = id;
 				api = new JitsiMeetExternalAPI(domain, options);
+				api.customParamRoomsHangup = false;
 				if(pingId < 0)
 					setupPing();
 			}
