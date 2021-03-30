@@ -38,7 +38,6 @@
 			}
 			var pingId = -1;
 			var api = new JitsiMeetExternalAPI(domain, options);
-			api.customParamRoomsHangup = false;
 			options.configOverwrite.prejoinPageEnabled = false;
 			
 			function btnclick(id) {
@@ -48,17 +47,12 @@
 				api.dispose()
 				options["roomName"] = id;
 				api = new JitsiMeetExternalAPI(domain, options);
-				api.customParamRoomsHangup = false;
-				if(pingId < 0)
-					setupPing();
+				setupPing();
 			}
 			
 			function onHangup(arg) {
-				if (!api.customParamRoomsHangup)
-				{
-					clearInterval(pingId);
-					pingId = -1;
-				}
+				clearInterval(pingId);
+				pingId = -1;
 			}
 			
 			api.addListener("readyToClose", onHangup);
