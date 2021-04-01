@@ -44,7 +44,8 @@
 			
 			function btnclick(id) {
 				clearInterval(pingId);
-				api.customParamRoomsHangup = true;
+				options.configOverwrite.startWithAudioMuted = api.isAudioMuted();
+				options.configOverwrite.startWithVideoMuted = api.isVideoMuted();
 				api.executeCommand("hangup");
 				api.dispose()
 				options["roomName"] = id;
