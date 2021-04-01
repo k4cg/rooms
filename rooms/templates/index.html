@@ -64,7 +64,7 @@
 				options.configOverwrite.startWithAudioMuted = muted;
 			}
 			
-			api.addListener("readyToClose", onHangup);
+			api.addListener("videoConferenceLeft", onHangup);
 			api.addListener("videoMuteStatusChanged", onVideoMute);
 			api.addListener("audioMuteStatusChanged", onAudioMute);
 			
