@@ -44,8 +44,6 @@
 			
 			function btnclick(id) {
 				clearInterval(pingId);
-				options.configOverwrite.startWithAudioMuted = api.isAudioMuted();
-				options.configOverwrite.startWithVideoMuted = api.isVideoMuted();
 				api.executeCommand("hangup");
 				api.dispose()
 				options["roomName"] = id;
@@ -58,7 +56,17 @@
 				pingId = -1;
 			}
 			
+			function onVideoMute(muted) {
+				options.configOverwrite.startWithVideoMuted = muted;
+			}
+
+			function onAudioMute(muted) {
+				options.configOverwrite.startWithAudioMuted = muted;
+			}
+			
 			api.addListener("readyToClose", onHangup);
+			api.addListener("videoMuteStatusChanged", onVideoMute);
+			api.addListener("audioMuteStatusChanged", onAudioMute);
 			
 			/*
 			function jitsiPoll()
