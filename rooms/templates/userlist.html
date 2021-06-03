@@ -4,7 +4,11 @@
 	<p><button type="button" class="btn btn-primary" onclick="btnclick('{{r.jitsiRoom}}')">{{r.name}}</button></p>
 	<p><div id="userlist-{{r.name}}">
 		{% for u in r.users %}
-			{% if u.external %}{% endif %} {{ u.nick }}<br>
+			{{ u.nick }} 
+			{% if u.external %}
+				<b class="text-danger">E</b>
+			{% endif %}
+			<br>
 		{% endfor %}
 	</div></p>
 {% endfor %}

@@ -52,8 +52,8 @@ def ping(request):
                     u = getOrCreateUser(ui)
                     if (ui not in v) or u.external:
                         u.inRoom = r
-                        u.save()
                         u.external = True
+                        u.save()
         vnum = len( User.objects.filter(lastSeen__gte=timezone.now()-timedelta(hours=12)) )
         data = {'rooms': render(request, 'userlist.html', {'rooms': rooms, 'vnum': vnum, 'ack': config.acknowledgement}).content.decode() }
         return JsonResponse(data)
