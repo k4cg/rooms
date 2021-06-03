@@ -59,4 +59,27 @@ def ping(request):
         return JsonResponse(data)
 
     return HttpResponse("request requires correct post", content_type='text/plain')
-    
+
+def getusersj(request=None):
+    rooms = getRooms()
+    j = {}
+    for r in rooms:
+        qs = User.objects.filter(inRoom=r, lastSeen__gte=timezone.now()-timedelta(seconds=30))
+        ulist = []
+        for u in qs:
+            ulist.append( u.nick + (" (E)" if u.external else "") )
+        j[r.name] = ulist
+    if request is not None:
+        return JsonResponse(j)
+    else:
+        return j
+
+def getusers(request):
+    j = getusersj()
+    s = ""
+    for r in j:
+        s += "[%s]\n" % r
+        for u in j[r]:
+            s += u + "\n"
+        s += "\n"
+    return HttpResponse(s, content_type='text/plain')
