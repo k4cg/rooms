@@ -28,7 +28,7 @@ def getOrCreateUser(nick):
 
 @ensure_csrf_cookie
 def ping(request):
-    if request.is_ajax() and request.method == 'POST':
+    if request.method == 'POST':
         reqData = loads(request.body)
         nick = reqData['nick']
         room = reqData['room']
